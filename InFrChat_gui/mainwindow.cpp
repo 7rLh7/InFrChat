@@ -2,13 +2,18 @@
 #include <QPlainTextEdit>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QGuiApplication>
+#include <QScreen>
+#include "inputtextedit.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    QPlainTextEdit * showEdit = new QPlainTextEdit("1 showEdit\n2 showEdit",this);
+    qDebug() << "start";
+    showEdit = new QPlainTextEdit("1 showEdit\n2 showEdit",this);
     showEdit->setReadOnly(true);
-    QPlainTextEdit * inputEdit = new QPlainTextEdit("inputEdit",this);
+    inputEdit = new InputTextEdit("inputEdit",this);
 
     QVBoxLayout * layout = new QVBoxLayout;
     layout->addWidget(showEdit);
@@ -21,6 +26,15 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget * centralWidget = new QWidget(this);
     centralWidget->setLayout(layout);
     setCentralWidget(centralWidget);
+
+    QScreen * primaryScreen = QGuiApplication::primaryScreen();
+    QSize screenSize = primaryScreen->size();
+
+    int init_width = screenSize.width()*0.5;
+    int init_height = screenSize.height()*0.5;
+    resize(init_width,init_height);
+
+    setWindowTitle("InFrChat");
 }
 
 MainWindow::~MainWindow()

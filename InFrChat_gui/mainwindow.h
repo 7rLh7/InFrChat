@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "inputtextedit.h"
 
 class MainWindow : public QMainWindow
 {
@@ -10,5 +11,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+signals:
+    void appendText();
+private:
+    QPlainTextEdit * showEdit;
+    InputTextEdit * inputEdit;
+
 };
 #endif // MAINWINDOW_H
